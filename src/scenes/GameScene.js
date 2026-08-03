@@ -66,12 +66,9 @@ export default class GameScene extends Phaser.Scene {
       delay: STAR_SPAWN_DELAY,
       loop: true,
       callback: () => {
-        console.log("Spawning star");
-
         const x = Phaser.Math.Between(40, this.scale.width - 40);
 
         const star = new Star(this, x);
-
         this.stars.push(star);
       },
     });
