@@ -138,7 +138,7 @@ export default class GameScene extends Phaser.Scene {
       this.sound.play("lose");
     }
 
-    this.time.delayedCall(700, () => {
+    this.time.delayedCall(600, () => {
       this.scene.start("GameOverScene", {
         won,
         score: this.score,

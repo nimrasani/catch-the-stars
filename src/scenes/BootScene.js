@@ -1,9 +1,6 @@
 import Phaser from "phaser";
 import { STAR, BOMB, BASKET } from "../assets/images";
-import collectAudio from "../assets/audio/collect.mp3";
-import bombAudio from "../assets/audio/bomb.mp3";
-import winAudio from "../assets/audio/win.mp3";
-import loseAudio from "../assets/audio/lose.mp3";
+import { collectAudio, bombAudio, winAudio, loseAudio } from "../assets/audio";
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
