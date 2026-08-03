@@ -18,6 +18,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
+    this.gameEnded = false;
     this.background = new Background(this);
 
     this.player = new Basket(this);
@@ -124,9 +125,24 @@ export default class GameScene extends Phaser.Scene {
 
   // End game
   endGame() {
-    this.scene.start("GameOverScene", {
-      won: this.score >= 20,
-      score: this.score,
+    if (this.gameEnded) return;
+
+    this.gameEnded = true;
+    const won = this.score >= 20;
+    this.timerEvent.remove();
+    this.player.setVelocityX(0);
+
+    if (won) {
+      this.sound.play("win");
+    } else {
+      this.sound.play("lose");
+    }
+
+    this.time.delayedCall(700, () => {
+      this.scene.start("GameOverScene", {
+        won,
+        score: this.score,
+      });
     });
   }
 
@@ -145,6 +161,7 @@ export default class GameScene extends Phaser.Scene {
           star.getBounds(),
         )
       ) {
+        this.sound.play("collect");
         star.destroy();
         this.score++;
         this.scoreText.setText(`⭐ ${this.score}`);
@@ -163,6 +180,7 @@ export default class GameScene extends Phaser.Scene {
           bomb.getBounds(),
         )
       ) {
+        this.sound.play("bomb");
         bomb.destroy();
         this.lives--;
         this.livesText.setText(`❤️ ${this.lives}`);
